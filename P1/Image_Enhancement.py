@@ -13,24 +13,24 @@ for item in filename_list:
 
 # print(len(list_of_images))
 
-img1 = list_of_images[0]
+for pic in list_of_images:
+    img1 = pic
+    # print(type(img1))
+    # print(img1.shape)
 
-print(type(img1))
-print(img1.shape)
+    # print('****************************')
 
-print('****************************')
+    img1 = color.rgb2gray(img1)
+    image_rescaled = rescale(img1, 0.7, anti_aliasing=False)
 
-img1 = color.rgb2gray(img1)
-image_rescaled = rescale(img1, 0.7, anti_aliasing=False)
+    # print(type(img1))
+    # print(img1.shape)
 
-print(type(img1))
-print(img1.shape)
+    plt.imshow(img1)
+    plt.show()
 
-plt.imshow(img1)
-plt.show()
-
-plt.imshow(image_rescaled)
-plt.show()
+    plt.imshow(image_rescaled)
+    plt.show()
 
 
 # print(image_rescaled)
