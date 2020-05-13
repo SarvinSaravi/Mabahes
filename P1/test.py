@@ -42,3 +42,27 @@ for pic in list_of_images:
 
     plt.savefig(r'scaling2/' + str(name) + '.png')
     name = name + 1
+
+
+
+#############################################
+
+from skimage import exposure
+
+
+img = list_of_images[0]
+# Gamma
+gamma_corrected = exposure.adjust_gamma(img, 2)
+# Logarithmic
+logarithmic_corrected = exposure.adjust_log(img, 1)
+
+
+plt.imshow(img)
+plt.show()
+
+plt.imshow(gamma_corrected)
+plt.show()
+
+plt.imshow(logarithmic_corrected)
+plt.show()
+
