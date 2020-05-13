@@ -1,35 +1,44 @@
+# plt.show()
+
+# my_path = os.path.abspath(__file__)
+# my_file = str(name) + '.png'
+# plt.savefig(os.path.join(my_path, my_file))
+
+# plt.imshow(image_rescaled)
+
+
+
+
+
+import os
+from skimage import io, color
 import matplotlib.pyplot as plt
+from skimage.transform import rescale
 
-from skimage import data, color
-from skimage.transform import rescale, resize, downscale_local_mean
+filename_list = os.listdir('pictures')
+list_of_images = []
 
-image = color.rgb2gray(data.astronaut())
+for item in filename_list:
+    img = io.imread('pictures\\' + item)
+    list_of_images.append(img)
 
-print(type(image))
-print(image.shape)
+name = 1
 
-image_rescaled = rescale(image, 0.25, anti_aliasing=False)
-image_resized = resize(image, (image.shape[0] // 4, image.shape[1] // 4),
-                       anti_aliasing=True)
-image_downscaled = downscale_local_mean(image, (4, 3))
+for pic in list_of_images:
+    img1 = pic
 
-fig, axes = plt.subplots(nrows=2, ncols=2)
+    img1 = color.rgb2gray(img1)
+    image_rescaled = rescale(img1, 0.7, anti_aliasing=False)
 
-ax = axes.ravel()
+    fig, axes = plt.subplots(nrows=1, ncols=2)
 
-ax[0].imshow(image, cmap='gray')
-ax[0].set_title("Original image")
+    ax = axes.ravel()
 
-ax[1].imshow(image_rescaled, cmap='gray')
-ax[1].set_title("Rescaled image (aliasing)")
+    ax[0].imshow(img1, cmap='gray')
+    ax[0].set_title("Original image")
 
-ax[2].imshow(image_resized, cmap='gray')
-ax[2].set_title("Resized image (no aliasing)")
+    ax[1].imshow(image_rescaled, cmap='gray')
+    ax[1].set_title("Rescaled image (aliasing)")
 
-ax[3].imshow(image_downscaled, cmap='gray')
-ax[3].set_title("Downscaled image (no aliasing)")
-
-ax[0].set_xlim(0, 512)
-ax[0].set_ylim(512, 0)
-plt.tight_layout()
-plt.show()
+    plt.savefig(r'scaling2/' + str(name) + '.png')
+    name = name + 1
