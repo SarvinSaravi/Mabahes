@@ -12,6 +12,7 @@ for item in filename_list:
 
 name = 1
 
+# scaling
 for pic in list_of_images:
     img1 = pic
 
@@ -21,3 +22,5 @@ for pic in list_of_images:
     plt.imshow(image_rescaled)
     plt.savefig(r'scaling2/' + str(name) + '.png')
     name = name + 1
+
+
