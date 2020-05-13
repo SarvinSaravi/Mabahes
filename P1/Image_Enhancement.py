@@ -20,7 +20,7 @@ for pic in list_of_images:
     image_rescaled = rescale(img1, 0.7, anti_aliasing=False)
 
     plt.imshow(image_rescaled)
-    plt.savefig(r'scaling2/' + str(name) + '.png')
+    plt.savefig(r'scaling/' + str(name) + '.png')
     name = name + 1
 
 
