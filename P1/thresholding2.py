@@ -7,14 +7,14 @@ from skimage.filters import (threshold_otsu, threshold_niblack,
 
 matplotlib.rcParams['font.size'] = 9
 
-num = 5
+num = 6
 
 image = io.imread('pictures\\' + str(num) + '.png')
 image = color.rgb2gray(image)
 
 binary_global = image > threshold_otsu(image)
 
-window_size = 7
+window_size = 13
 thresh_niblack = threshold_niblack(image, window_size=window_size, k=0.8)
 thresh_sauvola = threshold_sauvola(image, window_size=window_size)
 
