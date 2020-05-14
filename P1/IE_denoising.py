@@ -69,7 +69,7 @@ def peak_signal_noise_ratio(image_true, image_test, *, data_range=None):
 
 
 # change this number to access different pictures
-num = 3
+num = 4
 
 # Load an example image
 img = io.imread('pictures\\' + str(num) + '.png')
@@ -77,10 +77,10 @@ img = color.rgb2gray(img)
 # print(img.shape)
 
 my_picture = img_as_float(img)
-my_picture = my_picture[2900:3400, 1000:1500]
+my_picture = my_picture[3500:4000, 1000:1500]
 # print(my_picture.shape)
 
-sigma = 0.2
+sigma = 0.09
 noisy = random_noise(my_picture, var=sigma ** 2)
 
 # estimate the noise standard deviation from the noisy image
@@ -147,4 +147,3 @@ print(f"PSNR (fast, using sigma) = {psnr2_fast:0.2f}")
 # save the result
 plt.savefig(r'denoising/' + str(num) + '.png')
 gc.collect()
-
