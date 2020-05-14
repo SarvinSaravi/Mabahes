@@ -3,6 +3,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import os
 from skimage import io, color
+import gc
 
 from skimage import img_as_float
 from skimage import exposure
@@ -48,6 +49,7 @@ for item in filename_list:
 
 # img = list_of_images[4]
 
+num = 1
 
 for p in list_of_images:
     img = color.rgb2gray(p)
@@ -85,6 +87,7 @@ for p in list_of_images:
 
     # prevent overlap of y-axis labels
     fig.tight_layout()
-    plt.show()
+    plt.savefig(r'contrast/' + str(num) + '.png')
+    gc.collect()
 
 
