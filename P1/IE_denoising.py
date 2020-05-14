@@ -69,18 +69,15 @@ def peak_signal_noise_ratio(image_true, image_test, *, data_range=None):
 
 
 # change this number to access different pictures
-num = 7
+num = 8
 
 # Load an example image
 img = io.imread('pictures\\' + str(num) + '.png')
 img = color.rgb2gray(img)
-# print(img.shape)
 
 my_picture = img_as_float(img)
-my_picture = my_picture[600:1100, 450:950]
-# print(my_picture.shape)
 
-sigma = 0.5
+sigma = 0.02
 noisy = random_noise(my_picture, var=sigma ** 2)
 
 # estimate the noise standard deviation from the noisy image
