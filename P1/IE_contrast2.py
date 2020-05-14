@@ -1,10 +1,10 @@
+import gc
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
 
-from skimage import data, img_as_float
+from skimage import img_as_float, io, color
 from skimage import exposure
-
 
 matplotlib.rcParams['font.size'] = 8
 
@@ -36,7 +36,11 @@ def plot_img_and_hist(image, axes, bins=256):
     return ax_img, ax_hist, ax_cdf
 
 
-# Load an example imageimg = data.moon()
+num = 10
+
+# Load an example image
+img = io.imread('pictures\\' + str(num) + '.png')
+img = color.rgb2gray(img)
 
 # Contrast stretching
 p2, p98 = np.percentile(img, (2, 98))
@@ -52,18 +56,20 @@ img_adapteq = exposure.equalize_adapthist(img, clip_limit=0.03)
 fig = plt.figure(figsize=(8, 5))
 axes = np.zeros((2, 4), dtype=np.object)
 axes[0, 0] = fig.add_subplot(2, 4, 1)
+
 for i in range(1, 4):
-    axes[0, i] = fig.add_subplot(2, 4, 1+i, sharex=axes[0,0], sharey=axes[0,0])
+    axes[0, i] = fig.add_subplot(2, 4, 1 + i, sharex=axes[0, 0], sharey=axes[0, 0])
+
 for i in range(0, 4):
-    axes[1, i] = fig.add_subplot(2, 4, 5+i)
+    axes[1, i] = fig.add_subplot(2, 4, 5 + i)
 
 ax_img, ax_hist, ax_cdf = plot_img_and_hist(img, axes[:, 0])
 ax_img.set_title('Low contrast image')
 
 y_min, y_max = ax_hist.get_ylim()
 ax_hist.set_ylabel('Number of pixels')
-ax_hist.set_yticks(np.linspace(0, y_max, 5))
 
+ax_hist.set_yticks(np.linspace(0, y_max, 5))
 ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_rescale, axes[:, 1])
 ax_img.set_title('Contrast stretching')
 
@@ -78,4 +84,7 @@ ax_cdf.set_yticks(np.linspace(0, 1, 5))
 
 # prevent overlap of y-axis labels
 fig.tight_layout()
-plt.show()
+
+# save the result
+plt.savefig(r'contrast2/' + str(num) + '.png')
+gc.collect()
