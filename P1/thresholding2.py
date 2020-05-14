@@ -7,7 +7,7 @@ from skimage.filters import (threshold_otsu, threshold_niblack,
 
 matplotlib.rcParams['font.size'] = 9
 
-num = 1
+num = 2
 
 image = io.imread('pictures\\' + str(num) + '.png')
 image = color.rgb2gray(image)
