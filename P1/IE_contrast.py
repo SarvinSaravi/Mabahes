@@ -40,13 +40,6 @@ def plot_img_and_hist(image, axes, bins=256):
 
 
 # Load an example image
-# filename_list = os.listdir('pictures')
-# list_of_images = []
-#
-# for item in filename_list:
-#     img = io.imread('pictures\\' + item)
-#     list_of_images.append(img)
-
 num = 10
 
 img = io.imread('pictures\\' + str(num) + '.png')
