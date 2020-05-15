@@ -43,3 +43,5 @@ plt.title('Sauvola Threshold')
 plt.axis('off')
 
 plt.savefig(r'thresholding2/' + str(num) + '.png')
+
+# this is mo madular version
