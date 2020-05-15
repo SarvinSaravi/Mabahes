@@ -19,10 +19,10 @@ for r in range(100):
             if c not in cols:
                 cols.append(c)
 
-row_x1 = min(rows)
-row_x2 = max(rows)
-col_y1 = min(cols)
-col_y2 = max(cols)
+row_x1 = min(rows) - 5
+row_x2 = max(rows) + 5
+col_y1 = min(cols) - 5
+col_y2 = max(cols) + 5
 
 image_bw[row_x1, col_y1:col_y2] = 0
 image_bw[row_x2, col_y1:col_y2] = 0
@@ -30,5 +30,5 @@ image_bw[row_x1:row_x2, col_y1] = 0
 image_bw[row_x1:row_x2, col_y2] = 0
 
 plt.imshow(image_bw, cmap=plt.cm.gray)
-plt.savefig(r'picture/result1.png')
+plt.savefig(r'picture/result2.png')
 gc.collect()
