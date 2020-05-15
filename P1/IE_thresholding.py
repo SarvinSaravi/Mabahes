@@ -29,5 +29,6 @@ for num in range(1, 11):
     ax[2].set_title('Thresholded')
     ax[2].axis('off')
 
-    plt.savefig(r'thresholding/' + str(num) + '.png')
+    plt.show()
+    # plt.savefig(r'thresholding/' + str(num) + '.png')
     gc.collect()
