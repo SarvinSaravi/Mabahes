@@ -3,11 +3,9 @@ import matplotlib.pyplot as plt
 from skimage import io, color
 from skimage.filters import threshold_otsu
 
-for num in range(1, 11):
-    img = io.imread('pictures\\' + str(num) + '.png')
-    img = color.rgb2gray(img)
 
-    image = img
+def main(img):
+    image = color.rgb2gray(img)
     thresh = threshold_otsu(image)
     binary = image > thresh
 
@@ -29,6 +27,17 @@ for num in range(1, 11):
     ax[2].set_title('Thresholded')
     ax[2].axis('off')
 
-    plt.show()
-    # plt.savefig(r'thresholding/' + str(num) + '.png')
-    gc.collect()
+    fig.tight_layout()
+
+    return plt, binary, thresh
+
+
+def save(plot, name):
+    plot.savefig(r'thresholding/' + str(name) + '.png')
+
+
+if __name__ == '__main__':
+    num = 10
+    tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    p, img_binary, img_thresh = main(tmp_img)
+    save(p, num)
