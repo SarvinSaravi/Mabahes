@@ -1,4 +1,3 @@
-import gc
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
@@ -87,4 +86,3 @@ fig.tight_layout()
 
 # save the result
 plt.savefig(r'contrast2/' + str(num) + '.png')
-gc.collect()
