@@ -1,13 +1,11 @@
 import matplotlib
 import matplotlib.pyplot as plt
 import numpy as np
-import os
 from skimage import io, color
 import gc
 
 from skimage import img_as_float
 from skimage import exposure
-from skimage.transform import rescale
 
 matplotlib.rcParams['font.size'] = 8
 
@@ -81,5 +79,3 @@ ax_cdf.set_yticks(np.linspace(0, 1, 5))
 fig.tight_layout()
 plt.savefig(r'contrast/' + str(num) + '.png')
 gc.collect()
-
-
