@@ -35,54 +35,61 @@ def plot_img_and_hist(image, axes, bins=256):
     return ax_img, ax_hist, ax_cdf
 
 
-num = 10
+def main(image):
+    img = color.rgb2gray(image)
 
-# Load an example image
-img = io.imread('pictures\\' + str(num) + '.png')
-img = color.rgb2gray(img)
+    # Contrast stretching
+    p2, p98 = np.percentile(img, (2, 98))
+    img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
 
-# Contrast stretching
-p2, p98 = np.percentile(img, (2, 98))
-img_rescale = exposure.rescale_intensity(img, in_range=(p2, p98))
+    # Equalization
+    img_eq = exposure.equalize_hist(img)
 
-# Equalization
-img_eq = exposure.equalize_hist(img)
+    # Adaptive Equalization
+    img_adapteq = exposure.equalize_adapthist(img, clip_limit=0.03)
 
-# Adaptive Equalization
-img_adapteq = exposure.equalize_adapthist(img, clip_limit=0.03)
+    # Display results
+    fig = plt.figure(figsize=(8, 5))
+    axes = np.zeros((2, 4), dtype=np.object)
+    axes[0, 0] = fig.add_subplot(2, 4, 1)
 
-# Display results
-fig = plt.figure(figsize=(8, 5))
-axes = np.zeros((2, 4), dtype=np.object)
-axes[0, 0] = fig.add_subplot(2, 4, 1)
+    for i in range(1, 4):
+        axes[0, i] = fig.add_subplot(2, 4, 1 + i, sharex=axes[0, 0], sharey=axes[0, 0])
 
-for i in range(1, 4):
-    axes[0, i] = fig.add_subplot(2, 4, 1 + i, sharex=axes[0, 0], sharey=axes[0, 0])
+    for i in range(0, 4):
+        axes[1, i] = fig.add_subplot(2, 4, 5 + i)
 
-for i in range(0, 4):
-    axes[1, i] = fig.add_subplot(2, 4, 5 + i)
+    ax_img, ax_hist, ax_cdf = plot_img_and_hist(img, axes[:, 0])
+    ax_img.set_title('Low contrast image')
 
-ax_img, ax_hist, ax_cdf = plot_img_and_hist(img, axes[:, 0])
-ax_img.set_title('Low contrast image')
+    y_min, y_max = ax_hist.get_ylim()
+    ax_hist.set_ylabel('Number of pixels')
 
-y_min, y_max = ax_hist.get_ylim()
-ax_hist.set_ylabel('Number of pixels')
+    ax_hist.set_yticks(np.linspace(0, y_max, 5))
+    ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_rescale, axes[:, 1])
+    ax_img.set_title('Contrast stretching')
 
-ax_hist.set_yticks(np.linspace(0, y_max, 5))
-ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_rescale, axes[:, 1])
-ax_img.set_title('Contrast stretching')
+    ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_eq, axes[:, 2])
+    ax_img.set_title('Histogram equalization')
 
-ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_eq, axes[:, 2])
-ax_img.set_title('Histogram equalization')
+    ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_adapteq, axes[:, 3])
+    ax_img.set_title('Adaptive equalization')
 
-ax_img, ax_hist, ax_cdf = plot_img_and_hist(img_adapteq, axes[:, 3])
-ax_img.set_title('Adaptive equalization')
+    ax_cdf.set_ylabel('Fraction of total intensity')
+    ax_cdf.set_yticks(np.linspace(0, 1, 5))
 
-ax_cdf.set_ylabel('Fraction of total intensity')
-ax_cdf.set_yticks(np.linspace(0, 1, 5))
+    # prevent overlap of y-axis labels
+    fig.tight_layout()
 
-# prevent overlap of y-axis labels
-fig.tight_layout()
+    return plt, img_rescale, img_eq, img_adapteq
 
-# save the result
-plt.savefig(r'contrast2/' + str(num) + '.png')
+
+def save(plot, name):
+    plot.savefig(r'contrast2/' + str(name) + '.png')
+
+
+if __name__ == '__main__':
+    num = 7
+    tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    p, contrast_stretching, equalization, adaptive_equalization = main(tmp_img)
+    save(p, num)
