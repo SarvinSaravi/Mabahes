@@ -1,4 +1,3 @@
-import gc
 import matplotlib.pyplot as plt
 from skimage import io, color, img_as_float
 
@@ -14,7 +13,7 @@ def data_detection(image):
 
     for r in range(x):
         for c in range(y):
-            if image_bw[r][c] == 0:
+            if image_bw[r][c] < 1:
                 if r not in rows:
                     rows.append(r)
                 if c not in cols:
@@ -25,13 +24,30 @@ def data_detection(image):
     col_y1 = min(cols) - 5
     col_y2 = max(cols) + 5
 
-    return row_x1, row_x2, col_y1, col_y2
+    return row_x1, row_x2, col_y1, col_y2, image_bw
 
 
-filepath = 'picture\\Q3.png'
-image = io.imread(filepath)
+def encoding(rx1, rx2, cy1, cy2, img1):
+    for r in range(rx1, rx2):
+        for c in range(cy1, cy2, 2):
+            tmp = 0.5 + (0.5 - img1[r][c])
+            img1[r][c] = tmp
 
-image = img_as_float(image)
-data_detection(image)
+    for r in range(rx1, rx2, 2):
+        for c in range(cy1, cy2):
+            tmp = 0.5 + (0.5 - img1[r][c])
+            img1[r][c] = tmp
 
-print('end')
+    plt.imshow(img1, cmap=plt.cm.gray)
+    plt.show()
+
+    return img1
+
+
+if __name__ == '__main__':
+    filepath = 'picture\\Q5.png'
+    image = io.imread(filepath)
+
+    x1, x2, y1, y2, img = data_detection(image)
+    img = encoding(x1, x2, y1, y2, img)
+    s = encoding(x1, x2, y1, y2, img)
