@@ -31,7 +31,7 @@ def main(num):
     # process on image
     # img_float = img_as_float(img_rescale)
     # img_gray = color.rgb2gray(img_float)
-    print(img_rescale.shape)
+    # print(img_rescale.shape)
     img_cropped = img_rescale[1000:1500, 500:1000]
     p, dn, dn2, dn_f, dn_f2, nsy = denoising.main(img_cropped, 0.01)
     p.show()
