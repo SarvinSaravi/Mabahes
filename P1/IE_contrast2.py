@@ -36,7 +36,7 @@ def plot_img_and_hist(image, axes, bins=256):
 
 
 def main(image):
-    img = color.rgb2gray(image)
+    img = image
 
     # Contrast stretching
     p2, p98 = np.percentile(img, (2, 98))
@@ -91,5 +91,7 @@ def save(plot, name):
 if __name__ == '__main__':
     num = 7
     tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    tmp_img = color.rgb2gray(tmp_img)
     p, contrast_stretching, equalization, adaptive_equalization = main(tmp_img)
-    save(p, num)
+    # save(p, num)
+    p.show()

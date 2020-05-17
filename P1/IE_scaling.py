@@ -4,7 +4,8 @@ from skimage.transform import rescale
 
 
 def main(image, ratio):
-    img1 = color.rgb2gray(image)
+    img1 = image
+
     image_rescaled = rescale(img1, ratio, anti_aliasing=False)
 
     fig, axes = plt.subplots(nrows=1, ncols=2)
@@ -29,5 +30,7 @@ def save(plot, name):
 if __name__ == '__main__':
     num = 10
     tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    tmp_img = color.rgb2gray(tmp_img)
     p, img_rescale = main(tmp_img, 0.7)
-    save(p, num)
+    # save(p, num)
+    p.show()

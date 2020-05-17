@@ -5,7 +5,7 @@ from skimage.filters import threshold_otsu
 
 
 def main(img):
-    image = color.rgb2gray(img)
+    image = img
     thresh = threshold_otsu(image)
     binary = image > thresh
 
@@ -39,5 +39,7 @@ def save(plot, name):
 if __name__ == '__main__':
     num = 10
     tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    tmp_img = color.rgb2gray(tmp_img)
     p, img_binary, img_thresh = main(tmp_img)
-    save(p, num)
+    # save(p, num)
+    p.show()

@@ -38,7 +38,7 @@ def plot_img_and_hist(image, axes, bins=256):
 
 
 def main(image):
-    img = color.rgb2gray(image)
+    img = image
 
     # Gamma
     gamma_corrected = exposure.adjust_gamma(img, 2)
@@ -86,5 +86,7 @@ def save(plot, name):
 if __name__ == '__main__':
     num = 8
     tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    tmp_img = color.rgb2gray(tmp_img)
     p, gamma, logarithmic = main(tmp_img)
     save(p, num)
+    p.show()

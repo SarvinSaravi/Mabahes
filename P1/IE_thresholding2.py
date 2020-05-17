@@ -9,7 +9,7 @@ matplotlib.rcParams['font.size'] = 9
 
 
 def main(img, ws):
-    image = color.rgb2gray(img)
+    image = img
 
     binary_global = image > threshold_otsu(image)
 
@@ -49,7 +49,9 @@ def save(plot, name):
 
 
 if __name__ == '__main__':
-    num = 1
+    num = 8
     tmp_img = io.imread(r'pictures/' + str(num) + '.png')
+    tmp_img = color.rgb2gray(tmp_img)
     p, b_global, b_niblack, b_sauvola = main(tmp_img, 7)
-    save(p, num)
+    # save(p, num)
+    p.show()
