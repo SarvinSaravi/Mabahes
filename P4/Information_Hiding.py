@@ -27,7 +27,7 @@ def data_detection(image):
     return row_x1, row_x2, col_y1, col_y2, image_bw
 
 
-def encoding(rx1, rx2, cy1, cy2, img1):
+def encoding_decoding(rx1, rx2, cy1, cy2, img1):
     for r in range(rx1, rx2):
         for c in range(cy1, cy2, 2):
             tmp = 0.5 + (0.5 - img1[r][c])
@@ -39,15 +39,21 @@ def encoding(rx1, rx2, cy1, cy2, img1):
             img1[r][c] = tmp
 
     plt.imshow(img1, cmap=plt.cm.gray)
-    plt.show()
 
-    return img1
+    return img1, plt
+
+
+def save(plot, name):
+    plot.savefig('picture/' + str(name) + '.png')
 
 
 if __name__ == '__main__':
-    filepath = 'picture\\Q5.png'
+    filepath = 'picture\\Q3.png'
     image = io.imread(filepath)
 
     x1, x2, y1, y2, img = data_detection(image)
-    img = encoding(x1, x2, y1, y2, img)
-    s = encoding(x1, x2, y1, y2, img)
+    img_encoded, p = encoding_decoding(x1, x2, y1, y2, img)
+    save(p, 'encode3')
+
+    img_decoded, p = encoding_decoding(x1, x2, y1, y2, img_encoded)
+    save(p, 'decode3')
