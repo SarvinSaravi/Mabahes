@@ -1,5 +1,5 @@
 import matplotlib.pyplot as plt
-from skimage import io, color, img_as_float
+from skimage import io, color, img_as_float, img_as_uint
 
 
 def data_detection(image):
@@ -48,12 +48,16 @@ def save(plot, name):
 
 
 if __name__ == '__main__':
-    filepath = 'picture\\Q3.png'
+    filepath = 'picture\\Q5.png'
     image = io.imread(filepath)
 
     x1, x2, y1, y2, img = data_detection(image)
     img_encoded, p = encoding_decoding(x1, x2, y1, y2, img)
-    save(p, 'encode3')
+    img_encoded_uint = img_as_uint(img_encoded)
+    io.imsave('picture/encode5.png', img_encoded_uint)
+    # save(p, 'encode3')
 
     img_decoded, p = encoding_decoding(x1, x2, y1, y2, img_encoded)
-    save(p, 'decode3')
+    img_decoded_uint = img_as_uint(img_decoded)
+    io.imsave('picture/decode5.png', img_decoded_uint)
+    # save(p, 'decode3')
