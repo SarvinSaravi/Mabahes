@@ -149,7 +149,7 @@ def save(plot, name):
 
 if __name__ == '__main__':
     # change this number to access different pictures
-    num = 3
+    num = 10
 
     # Load an example image
     img = io.imread('pictures\\' + str(num) + '.png')
@@ -159,8 +159,8 @@ if __name__ == '__main__':
     img = color.rgb2gray(img)
     print(img.shape)
     # plt_v, img = my_module.main(img, 0.2)
-    img = img[2100:2700, 2900:3500]
+    img = img[2000:2500, 1500:2000]
     print(img.shape)
 
-    p, dn, dn2, dn_f, dn_f2, nsy = main(img, 0.1)
+    p, dn, dn2, dn_f, dn_f2, nsy = main(img, 0.05)
     save(p, num)
